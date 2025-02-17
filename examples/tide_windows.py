@@ -29,7 +29,8 @@ def main():
     for w in res["windows"]:
         start = datetime.fromisoformat(w["opens"])
         end = datetime.fromisoformat(w["closes"])
-        print(f"{start:%a %d %b %H:%M} -> {end:%H:%M}  peak {w['peak_height_m']:.2f} m")
+        mins = int((end - start).total_seconds() // 60)
+        print(f"{start:%a %d %b %H:%M} -> {end:%H:%M}  ({mins} min, peak {w['peak_height_m']:.2f} m)")
 
 
 if __name__ == "__main__":
