@@ -29,6 +29,8 @@ def main():
     }
     plan = Client().post("/calls", body)
     print(f"Berth {plan['berth']}  alongside {plan['alongside']}  departs {plan['departs']}")
+    for note in plan.get("notes", []):
+        print("  -", note)
 
 
 if __name__ == "__main__":
