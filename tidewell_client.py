@@ -17,6 +17,7 @@ class Client:
         self.s.headers.update({
             "Authorization": "Bearer " + self.key,
             "Accept": "application/json",
+            "User-Agent": "tidewell-examples/0.4",
         })
 
     def get(self, path, **params):
