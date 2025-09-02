@@ -18,13 +18,14 @@ from tidewell_client import Client
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--draught", type=float, required=True, help="vessel draught in metres")
+    ap.add_argument("--ukc", type=float, default=0.5, help="under-keel clearance in metres")
     ap.add_argument("--hours", type=int, default=24)
     a = ap.parse_args()
 
     c = Client()
-    res = c.get("/tide-windows", draught_m=a.draught, ukc_m=0.5, hours=a.hours)
+    res = c.get("/tide-windows", draught_m=a.draught, ukc_m=a.ukc, hours=a.hours)
     if not res["windows"]:
-        print("No window in the next %d h for %.1f m + %.1f m UKC." % (a.hours, a.draught, 0.5))
+        print("No window in the next %d h for %.1f m + %.1f m UKC." % (a.hours, a.draught, a.ukc))
         return
     for w in res["windows"]:
         start = datetime.fromisoformat(w["opens"])
