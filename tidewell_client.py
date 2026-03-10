@@ -27,5 +27,8 @@ class Client:
 
     def post(self, path, body):
         r = self.s.post(self.base + path, json=body, timeout=TIMEOUT)
+        if r.status_code == 422:
+            # The planner explains why it rejected a call; show that instead of a stack trace.
+            sys.exit("Rejected: " + r.json().get("detail", r.text))
         r.raise_for_status()
         return r.json()
