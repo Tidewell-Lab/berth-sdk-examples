@@ -23,7 +23,7 @@ class Handler(BaseHTTPRequestHandler):
         body = self.rfile.read(int(self.headers.get("Content-Length", 0)))
         sent = self.headers.get("X-Tidewell-Signature", "")
         want = hmac.new(SECRET, body, hashlib.sha256).hexdigest()
-        if not SECRET or sent != want:
+        if not SECRET or not hmac.compare_digest(sent, want):
             self.send_response(401)
             self.end_headers()
             return
