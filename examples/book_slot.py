@@ -19,13 +19,14 @@ def main():
     ap.add_argument("--draught", type=float, required=True)
     ap.add_argument("--eta", required=True, help="ISO 8601, UTC")
     ap.add_argument("--hours", type=float, required=True, help="expected time alongside")
+    ap.add_argument("--dry-run", action="store_true", help="ask the planner without holding the slot")
     a = ap.parse_args()
 
     body = {
         "vessel": {"name": a.vessel, "loa_m": a.loa, "draught_m": a.draught},
         "eta": a.eta,
         "duration_h": a.hours,
-        "hold": True,
+        "hold": not a.dry_run,
     }
     plan = Client().post("/calls", body)
     print(f"Berth {plan['berth']}  alongside {plan['alongside']}  departs {plan['departs']}")
