@@ -10,7 +10,7 @@ def main():
     c = Client()
     berths = c.get("/berths")["items"]
     print(f"{'Berth':<10} {'Length m':>9} {'Depth m':>8}  Notes")
-    for b in berths:
+    for b in sorted(berths, key=lambda b: b["code"]):
         print(f"{b['code']:<10} {b['length_m']:>9.0f} {b['depth_cd_m']:>8.1f}  {b.get('notes', '')}")
 
 
