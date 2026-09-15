@@ -1,7 +1,7 @@
 # Tidewell Berth API: examples
 
 Small, runnable examples for the Tidewell Berth API. Each one does one job and
-fits on a screen, so you can read it befor you run it.
+fits on a screen, so you can read it before you run it.
 
 | Example | What it does |
 |---|---|
