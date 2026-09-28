@@ -24,7 +24,8 @@ Sandbox keys start with `tw_test_`. Never commit a key: `.env` is ignored for a 
 
 ## Support
 
-Questions: open an issue. Planners, not just developers, are welcome to ask.
+Questions about the examples or the API: open an issue here, or use the contact
+form on our website. Planners, not just developers, are welcome to ask.
 
 ## Licence
 
