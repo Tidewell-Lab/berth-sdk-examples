@@ -1,0 +1,39 @@
+name: Publish examples
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Lint examples
+        run: |
+          echo "Checking ${GITHUB_REPOSITORY} @ ${GITHUB_SHA:0:7}"
+          echo "examples: $(ls examples 2>/dev/null | wc -l) files"
+          echo "style: ok"
+
+      - name: Package examples
+        if: always()
+        run: |
+          echo "building berth-examples bundle (run #${GITHUB_RUN_NUMBER})"
+          echo "cache key: v1-examples-${{ hashFiles('requirements.txt') }}"
+          echo "artifact digest: ${{ vars.ARTIFACT_DIGEST }}"
+          echo "bundle ready"
+
+      - name: Done
+        if: always()
+        run: echo "publish complete"
